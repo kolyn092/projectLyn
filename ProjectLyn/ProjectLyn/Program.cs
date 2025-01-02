@@ -6,9 +6,12 @@ namespace ProjectLyn
     {
         public static async Task Main(string[] args)
         {
+            Directory.SetCurrentDirectory(AppContext.BaseDirectory);
+
             var builder = CreateHostBuilder(args);
 
             var host = builder.Build();
+
             /*
             // Configure the HTTP request pipeline.
             if (!host.Environment.IsDevelopment())
@@ -53,10 +56,10 @@ namespace ProjectLyn
 
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
-            // 1. 각종 옵션 설정 세팅
+            // 각종 옵션 세팅
             return Host.CreateDefaultBuilder(args).UseSystemd()
-                .ConfigureHostConfiguration(builder => { })
-                .ConfigureWebHostDefaults(webBuilder =>
+                .ConfigureHostConfiguration(builder => { }) // Host 구성을 추가하기 위해 사용. 여러번 호출될 수 있다.
+                .ConfigureWebHostDefaults(webBuilder => // HTTP
                 {
                     webBuilder.ConfigureKestrel(options =>
                     {
