@@ -12,26 +12,6 @@ namespace ProjectLyn
 
             var host = builder.Build();
 
-            /*
-            // Configure the HTTP request pipeline.
-            if (!host.Environment.IsDevelopment())
-            {
-                host.UseExceptionHandler("/Home/Error");
-            }
-            host.UseStaticFiles();
-
-            // The default HSTS value is 30 days. You may want to change this production scenarios.
-            host.UseHsts();
-
-            host.UseRouting();
-
-            host.UseAuthorization();
-
-            host.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-            */
-
             await Task.Run(async () =>
             {
                 try
