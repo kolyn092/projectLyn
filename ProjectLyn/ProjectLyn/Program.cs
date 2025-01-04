@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Server.Kestrel.Https;
+using NLog.Web;
 
 namespace ProjectLyn
 {
@@ -49,7 +50,10 @@ namespace ProjectLyn
                         });
                         options.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(10);
                     }).UseStartup<Startup>();
-                });
+                }).ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                }).UseNLog();
         }
     }
 }
