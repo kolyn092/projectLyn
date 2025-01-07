@@ -2,6 +2,10 @@
   "profiles": {
     "ProjectLyn": {
       "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Local",
+        "LOCALE": "Local"
+      },
       "applicationUrl": "https://localhost:10057"
     }
   },

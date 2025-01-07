@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using ServerLib;
 
 namespace ProjectLyn
 {
@@ -16,8 +20,10 @@ namespace ProjectLyn
 
         public void ConfigureServices(IServiceCollection services)
         {
+            Logger.Default.LogDebug("Start ConfigureServices");
             var mvcBuilder = services.AddMvc();
 
+            Logger.Default.LogDebug("Finished ConfigureServices");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

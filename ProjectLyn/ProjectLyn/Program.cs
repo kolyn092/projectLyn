@@ -1,5 +1,11 @@
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Https;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using NLog.Web;
+using ServerLib;
+using System;
+using System.Threading.Tasks;
 
 namespace ProjectLyn
 {
@@ -7,7 +13,7 @@ namespace ProjectLyn
     {
         public static async Task Main(string[] args)
         {
-            Directory.SetCurrentDirectory(AppContext.BaseDirectory);
+            ServerInitializer.InitBeforeCreateHost();
 
             var builder = CreateHostBuilder(args);
 
