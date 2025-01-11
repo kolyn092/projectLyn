@@ -6,7 +6,7 @@
         "ASPNETCORE_ENVIRONMENT": "Local",
         "LOCALE": "Local"
       },
-      "applicationUrl": "https://localhost:10057"
+      "applicationUrl": "https://localhost:5000"
     }
   },
   "$schema": "http://json.schemastore.org/launchsettings.json",
