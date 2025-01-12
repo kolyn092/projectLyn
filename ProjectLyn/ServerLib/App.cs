@@ -10,6 +10,7 @@ namespace ServerLib
     {
         private static string _environmentName;
         public static string ConfigEnvironment => EnvironmentName.ToLower();
+        private static string _services;
 
         public static string EnvironmentName
         {
@@ -21,6 +22,16 @@ namespace ServerLib
                 }
 
                 return _environmentName;
+            }
+        }
+        public static string Services
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_services))
+                    _services = Environment.GetEnvironmentVariable("SERVICE");
+
+                return _services;
             }
         }
     }

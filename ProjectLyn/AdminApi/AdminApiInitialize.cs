@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using ServerLib;
 
 namespace AdminApi
@@ -8,7 +9,11 @@ namespace AdminApi
         [InitializeConfigureServices]
         private static void InitializeOnStartup(IServiceCollection services)
         {
-
+            if (ServerLib.App.Services.Contains("AdminApi") == false)
+            {
+                Logger.Default.LogInformation("admin api initialize");
+                services.AddHostedService<AdminHostedService>();
+            }
         }
     }
 }
