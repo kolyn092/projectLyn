@@ -12,7 +12,6 @@ namespace AdminApi
             if (ServerLib.App.Services.Contains("AdminApi") == false)
             {
                 Logger.Default.LogInformation("admin api initialize");
-                services.AddHostedService<AdminHostedService>();
             }
         }
     }
