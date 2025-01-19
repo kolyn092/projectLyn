@@ -8,17 +8,35 @@ export const SceneEnum = {
 export let storeGlobalInfo = writable({
     Scene: SceneEnum.Login,
 
-    //Admin 서버 API 주소가져오기
-    GetAdminServerUrl(apiUrl, isAdmin) {
-        if (isAdmin) {
-            return `http://${network["Host"]}:${network["Port"]}/Admin/${apiUrl}`;
-        }
-        else {
-            return `http://${network["Host"]}:${network["Port"]}/InHouse/${apiUrl}`;
-        }
+    GetAdminServerUrl(apiUrl) 
+    {
+        return `http://${network['Host']}:${network['Port']}/InHouse/${apiUrl}`;
     },
 
-    // get api
+
+    //https://svelte.dev/tutorial/kit/post-handlers
+
+    async PostApiAsync(apiUrl, request, cb)
+    {
+        return await InternalSendApiAsync(apiUrl, 'post', request, cb);
+    },
+
+    async GetApiAsync(apiUrl, request, cb)
+    {
+        return await InternalSendApiAsync(apiUrl, 'get', request, cb);
+    },
 
     // send api
+    async InternalSendApiAsync(apiUrl, meth, request, cb)
+    {
+        var url = self.GetAdminServerUrl(apiUrl);
+        const response = await fetch(url, {
+			method: meth,
+			body: request, //JSON.stringify({ request }),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
+        cb(response.body);
+    }
 });
