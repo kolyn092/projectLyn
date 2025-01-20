@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ServerLib;
+using System.Collections.Generic;
+using System.Reflection;
+using System;
 using System.Text;
 
 namespace ProjectLyn
@@ -24,7 +28,32 @@ namespace ProjectLyn
         {
             Logger.Default.LogDebug("Start ConfigureServices");
             var mvcBuilder = services.AddMvc();
-            mvcBuilder.Services.AddRazorPages();
+            var removeParts = new List<ApplicationPart>();
+            foreach (var part in mvcBuilder.PartManager.ApplicationParts)
+            {
+                if (part.Name.Contains("Api"))
+                    removeParts.Add(part);
+            }
+
+            foreach (var removePart in removeParts)
+                mvcBuilder.PartManager.ApplicationParts.Remove(removePart);
+
+            var useAssemblies = new List<Assembly>();
+            var serviceName = Environment.GetEnvironmentVariable("SERVICE");
+            if (serviceName != null)
+            {
+                var serviceAssemblies = serviceName.Split(',', StringSplitOptions.RemoveEmptyEntries);
+                foreach (var assemblyName in serviceAssemblies)
+                {
+                    Logger.Default.LogDebug("load api {0}", assemblyName);
+                    var serviceAssembly = Assembly.Load(assemblyName);
+                    useAssemblies.Add(serviceAssembly);
+                    mvcBuilder = mvcBuilder.AddApplicationPart(serviceAssembly);
+                }
+            }
+
+            Logger.Default.LogDebug("Services {0}", serviceName);
+            //mvcBuilder.Services.AddRazorPages();
 
             Logger.Default.LogDebug("Finished ConfigureServices");
         }

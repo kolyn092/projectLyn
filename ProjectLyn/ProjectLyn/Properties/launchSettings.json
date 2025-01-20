@@ -4,7 +4,8 @@
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Local",
-        "LOCALE": "Local"
+        "LOCALE": "Local",
+        "SERVICE": "AdminApi"
       },
       "applicationUrl": "https://localhost:5000"
     }
