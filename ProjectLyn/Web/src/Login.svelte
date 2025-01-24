@@ -1,10 +1,17 @@
 <script>
+    import { storeGlobalInfo } from "./store";
+
     let id="";
     let pw="";
 
     function Login()
     {
-
+        var req = {
+            Data : 0
+        }
+        $storeGlobalInfo.InternalSendApiAsync("GetData", "post", req, (res) => {
+            alert("접속완료");
+        });
     }
 </script>
 
