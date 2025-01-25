@@ -11,7 +11,7 @@ namespace AdminApi
     [Route("InHouse/[action]")]
     public class InHouseController : ControllerBase
     {
-        [HttpGet]
+        [HttpPost]
         public IActionResult GetData(AdminRequest.SendData data)
         {
             var resData = new List<string>();

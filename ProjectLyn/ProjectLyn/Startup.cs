@@ -27,6 +27,38 @@ namespace ProjectLyn
         public void ConfigureServices(IServiceCollection services)
         {
             Logger.Default.LogDebug("Start ConfigureServices");
+
+            //services.AddControllers(options =>
+            //{
+            //    options.Filters.Add<ControllerExecuteElapsedFilter>();
+            //});
+            //
+            //services.Configure<HostOptions>(options =>
+            //{
+            //    options.ShutdownTimeout = TimeSpan.FromHours(2);
+            //});
+            //
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy(JwtBearerDefaults.AuthenticationScheme, policy =>
+            //    {
+            //        policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
+            //        policy.RequireRole("agent", "user", "admin");
+            //        policy.RequireClaim(ClaimTypes.Role);
+            //    });
+            //});
+
+            //For Browser Call Restfull API
+            //if (App.ContainAdminService) => Services.Contains("AdminApi")
+            {
+                services.AddCors(o => o.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                }));
+            }
+
             var mvcBuilder = services.AddMvc();
             var removeParts = new List<ApplicationPart>();
             foreach (var part in mvcBuilder.PartManager.ApplicationParts)
@@ -55,6 +87,16 @@ namespace ProjectLyn
             Logger.Default.LogDebug("Services {0}", serviceName);
             //mvcBuilder.Services.AddRazorPages();
 
+            //mvcBuilder.AddControllersAsServices().AddMvcOptions(option =>
+            //{
+            //    // option.OutputFormatters.RemoveType<SystemTextJsonOutputFormatter>();
+            //    // // can pass IJsonFormatterResolver for customize.
+            //    // option.OutputFormatters.Add(new Utf8JsonOutputFormatter(StandardResolver.Default));
+            //}).AddNewtonsoftJson(options =>
+            //{
+            //    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+            //});
+
             Logger.Default.LogDebug("Finished ConfigureServices");
         }
 
@@ -66,29 +108,29 @@ namespace ProjectLyn
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseExceptionHandler(errorApp =>
-            //{
-            //    errorApp.Run(async context =>
-            //    {
-            //        context.Response.StatusCode = 500;
-            //        context.Response.ContentType = "application/json";
+            app.UseExceptionHandler(errorApp =>
+            {
+                errorApp.Run(async context =>
+                {
+                    context.Response.StatusCode = 500;
+                    context.Response.ContentType = "application/json";
 
 
-            //        var exceptionHandlerPathFeature =
-            //            context.Features.Get<IExceptionHandlerPathFeature>();
+                    var exceptionHandlerPathFeature =
+                        context.Features.Get<IExceptionHandlerPathFeature>();
 
-            //        // Use exceptionHandlerPathFeature to process the exception (for example, 
-            //        // logging), but do NOT expose sensitive error information directly to 
-            //        // the client.
-            //        if (exceptionHandlerPathFeature != null)
-            //        {
-            //            var error = exceptionHandlerPathFeature.Error.ToString();
-            //            Logger.Default.LogError(error);
-            //            var xmlBytes = Encoding.ASCII.GetBytes(error);
-            //            await context.Response.Body.WriteAsync(xmlBytes);
-            //        }
-            //    });
-            //});
+                    // Use exceptionHandlerPathFeature to process the exception (for example, 
+                    // logging), but do NOT expose sensitive error information directly to 
+                    // the client.
+                    if (exceptionHandlerPathFeature != null)
+                    {
+                        var error = exceptionHandlerPathFeature.Error.ToString();
+                        Logger.Default.LogError(error);
+                        var xmlBytes = Encoding.ASCII.GetBytes(error);
+                        await context.Response.Body.WriteAsync(xmlBytes);
+                    }
+                });
+            });
 
             // The default HSTS value is 30 days. You may want to change this production scenarios.
             app.UseHsts();
@@ -97,6 +139,8 @@ namespace ProjectLyn
             app.UseRouting();
             app.UseCors(); //web
             app.UseAuthorization();
+
+            Logger.Default.LogDebug("Finished Configure");
         }
     }
 }
