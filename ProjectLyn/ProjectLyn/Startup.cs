@@ -58,6 +58,7 @@ namespace ProjectLyn
                         .AllowAnyHeader();
                 }));
             }
+            services.AddControllers();
 
             var mvcBuilder = services.AddMvc();
             var removeParts = new List<ApplicationPart>();
@@ -87,11 +88,12 @@ namespace ProjectLyn
             Logger.Default.LogDebug("Services {0}", serviceName);
             //mvcBuilder.Services.AddRazorPages();
 
-            //mvcBuilder.AddControllersAsServices().AddMvcOptions(option =>
-            //{
-            //    // option.OutputFormatters.RemoveType<SystemTextJsonOutputFormatter>();
-            //    // // can pass IJsonFormatterResolver for customize.
-            //    // option.OutputFormatters.Add(new Utf8JsonOutputFormatter(StandardResolver.Default));
+            mvcBuilder.AddControllersAsServices().AddMvcOptions(option =>
+            {
+                //option.OutputFormatters.RemoveType<SystemTextJsonOutputFormatter>();
+                // // can pass IJsonFormatterResolver for customize.
+                // option.OutputFormatters.Add(new Utf8JsonOutputFormatter(StandardResolver.Default));
+            });
             //}).AddNewtonsoftJson(options =>
             //{
             //    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
@@ -139,6 +141,10 @@ namespace ProjectLyn
             app.UseRouting();
             app.UseCors(); //web
             app.UseAuthorization();
+            app.UseEndpoints(builder =>
+            {
+                builder.MapControllers();
+            });
 
             Logger.Default.LogDebug("Finished Configure");
         }
