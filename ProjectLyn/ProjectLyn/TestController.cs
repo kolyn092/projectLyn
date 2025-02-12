@@ -6,7 +6,7 @@ using static AdminApi.AdminResponse;
 namespace ProjectLyn
 {
     [ApiController]
-    [Route("Test/[controller]")]
+    [Route("Test/[action]")]
     public class TestController : ControllerBase
     {
         [HttpPost]

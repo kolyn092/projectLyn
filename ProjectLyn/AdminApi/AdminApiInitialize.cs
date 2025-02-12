@@ -13,6 +13,10 @@ namespace AdminApi
             {
                 Logger.Default.LogInformation("admin api initialize");
             }
+            else
+            {
+                Logger.Default.LogInformation("admin api initialize");
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ export let storeGlobalInfo = writable({
 
     GetAdminServerUrl(apiUrl) 
     {
-        return `http://${network['Host']}:${network['Port']}/InHouse/${apiUrl}`;
+        return `http://${network['Host']}:${network['Port']}/Test/${apiUrl}`;
     },
 
     //https://svelte.dev/tutorial/kit/post-handlers
@@ -20,7 +20,7 @@ export let storeGlobalInfo = writable({
     // send api
     async InternalSendApiAsync(apiUrl, meth, request, cb)
     {
-        var url = `http://${network['Host']}:${network['Port']}/InHouse/${apiUrl}`;
+        var url = `http://${network['Host']}:${network['Port']}/Test/${apiUrl}`;
         console.log("url : ", url);
         const response = await fetch(url, {
             method: meth,

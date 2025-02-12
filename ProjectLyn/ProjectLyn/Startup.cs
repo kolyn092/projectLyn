@@ -28,26 +28,6 @@ namespace ProjectLyn
         {
             Logger.Default.LogDebug("Start ConfigureServices");
 
-            //services.AddControllers(options =>
-            //{
-            //    options.Filters.Add<ControllerExecuteElapsedFilter>();
-            //});
-            //
-            //services.Configure<HostOptions>(options =>
-            //{
-            //    options.ShutdownTimeout = TimeSpan.FromHours(2);
-            //});
-            //
-            //services.AddAuthorization(options =>
-            //{
-            //    options.AddPolicy(JwtBearerDefaults.AuthenticationScheme, policy =>
-            //    {
-            //        policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
-            //        policy.RequireRole("agent", "user", "admin");
-            //        policy.RequireClaim(ClaimTypes.Role);
-            //    });
-            //});
-
             //For Browser Call Restfull API
             //if (App.ContainAdminService) => Services.Contains("AdminApi")
             {
@@ -86,18 +66,6 @@ namespace ProjectLyn
             }
 
             Logger.Default.LogDebug("Services {0}", serviceName);
-            //mvcBuilder.Services.AddRazorPages();
-
-            mvcBuilder.AddControllersAsServices().AddMvcOptions(option =>
-            {
-                //option.OutputFormatters.RemoveType<SystemTextJsonOutputFormatter>();
-                // // can pass IJsonFormatterResolver for customize.
-                // option.OutputFormatters.Add(new Utf8JsonOutputFormatter(StandardResolver.Default));
-            });
-            //}).AddNewtonsoftJson(options =>
-            //{
-            //    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-            //});
 
             Logger.Default.LogDebug("Finished ConfigureServices");
         }
@@ -136,7 +104,7 @@ namespace ProjectLyn
 
             // The default HSTS value is 30 days. You may want to change this production scenarios.
             app.UseHsts();
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseCors(); //web
