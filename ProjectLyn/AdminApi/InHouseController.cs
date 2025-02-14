@@ -11,22 +11,28 @@ namespace AdminApi
     [Route("InHouse/[action]")]
     public class InHouseController : ControllerBase
     {
+        //[HttpPost]
+        //public IActionResult GetData(AdminRequest.SendData data)
+        //{
+        //    var resData = new List<string>();
+        //    if(data.Data == 0)
+        //    {
+        //        resData.Add("test string");
+        //    }
+
+        //    var result = new AdminResponse.GetData()
+        //    {
+        //        Result = new AdminResponse.Result() { Code = 0, Message = string.Empty },
+        //        Data = resData,
+        //    };
+
+        //    return new JsonResult(result);
+        //}
+
         [HttpPost]
-        public IActionResult GetData(AdminRequest.SendData data)
+        public IActionResult GetData()
         {
-            var resData = new List<string>();
-            if(data.Data == 0)
-            {
-                resData.Add("test string");
-            }
-
-            var result = new AdminResponse.GetData()
-            {
-                Result = new AdminResponse.Result() { Code = 0, Message = string.Empty },
-                Data = resData,
-            };
-
-            return new JsonResult(result);
+            return Ok(new { message = "success", data = "test" });
         }
     }
 }

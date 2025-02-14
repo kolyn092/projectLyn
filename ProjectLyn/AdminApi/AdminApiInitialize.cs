@@ -11,7 +11,7 @@ namespace AdminApi
         {
             if (ServerLib.App.Services.Contains("AdminApi") == false)
             {
-                Logger.Default.LogInformation("admin api initialize");
+                Logger.Default.LogInformation("fail load admin api");
             }
             else
             {
