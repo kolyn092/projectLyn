@@ -24,7 +24,7 @@ namespace AdminApi.Controllers
             return Ok(new { message = "success", data = "test" });
         }
 
-        [HttpPost]
+        [HttpPost] //https://localhost:8001/InHouse/PostData2
         public IActionResult PostData2(SendData data)
         {
             var resData = new List<string>();
@@ -46,7 +46,7 @@ namespace AdminApi.Controllers
             return new JsonResult(result);
         }
 
-        [HttpPost]
+        [HttpPost] //https://localhost:8001/InHouse/PostData3?data=0
         public IActionResult PostData3(int data)
         {
             var resData = new List<string>();
